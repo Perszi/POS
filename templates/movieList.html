@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+AncSound
+{% endblock title %}
+
+{% block others %}
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+
+{% endblock others %}
+{% block content %}
+
+
+    {% include 'partials/navbar.html' %}
+    <main class='bg-primary_black min-h-screen w-full'>
+
+                <section id="pageContent">
+{% if listOfTags %}
+                  <div class = "tag">
+                   <section class="splide" aria-labelledby="carousel-heading" data-splide='{"perPage":6}'>
+                <h2 >Tagi:</h2>
+                    <div class="splide__track">
+                            <ul class="splide__list">
+                                {% for tag in listOfTags %}
+                                <li class="splide__slide">
+                                        <a class="moveThumb" href="{% url 'playTag' id=tag.id %}">
+
+                                            <div class= "tag_element">
+                                                <div class= "title" >
+                                                    {{tag.title}}
+                                                </div>
+                                            </div>
+                                        </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                    </div>
+
+            </section>
+            {% endif %}
+        {% for videoSection in movies %}
+            {% if videoSection.video.count > 0 or videoSection.video|length > 0 %}
+
+            <section class="splide" aria-labelledby="carousel-heading">
+                <h2 >{{ videoSection.customTitle }}</h2>
+                    <div class="splide__track">
+                            <ul class="splide__list">
+                                {% for movie in videoSection.video %}
+                                <li class="splide__slide">
+                                        <a class="moveThumb" href="{% url 'show_det' movie_id=movie.uuid %}">
+                                            <div class="movieFlyer">
+                                                <img src="{{movie.flyer.url}}" class="imgF" alt="">
+
+                                            </div>
+                                            <p class="title">
+                                                {{movie.title}}
+                                            </p>
+                                            <div class="tags">
+                                                <div class="tagTitle">
+                                                    Tagi
+                                                </div>
+
+                                               {% for tag in movie.tags.all %}
+                                                      {% if forloop.counter <= 5 %}
+                                                        <div class="tag">
+                                                               {{tag.title}}
+                                                        </div>
+                                                        {% endif %}
+                                                {% endfor %}
+
+                                            </div>
+                                        </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                    </div>
+            </section>
+            {% endif %}
+        {% endfor %}
+        </section>
+    </main>
+{% endblock content %}

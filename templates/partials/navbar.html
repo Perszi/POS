@@ -1,0 +1,21 @@
+{% load static %}
+<nav class="flex text-gray-100 justify-between items-center py-3 px-4 fixed w-full z-50">
+        <div class="w-6/12">
+            <a href='/'>
+            
+            <img src="{% static 'ANC SOUND_1.png' %}" alt="logo" class="w-5/12 md:w-2/12">
+            </a>
+        </div>
+
+        <form  action="{% url 'search' %}" method="get" class="">
+
+            <input type="text" name="q" placeholder="tag" class="">
+                <button type="submit" class="" >
+                    <span>
+                    Szukaj
+                    </span>
+            </button>
+                </button>
+         </form>
+        
+    </nav>

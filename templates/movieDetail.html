@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+ANC SOUND - Detail Page
+{% endblock title %}
+
+{% block others %}
+
+<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+{% endblock others %}
+
+{% block content %}
+
+    {% include 'partials/navbar.html' %}
+    <main class='bg-primary_black min-h-screen w-full'>
+        <section class="movie-back h-screen relative bg-no-repeat pb-8 pl-6 flex items-end bg-cover" style="background-image: url('{{movie.flyer.url}}');">
+            <div>
+                <h2 class="text-6xl font-semibold text-primary_red my-4">
+                    {{movie.title}}
+                </h2>
+                <p class=" w-11/12 md:w-5/12 font-medium text-primary_red my-4">
+                    {{movie.description |slice:":50"}}...
+
+                </p>
+                <div class="flex my-4">
+                    <a href="{% url 'play' movie_id=movie.uuid %}">
+
+                        <button class="flex items-center bg-white py-2 px-5 rounded-md" style='color:white;'>
+                            <ion-icon name="play" class="text-2xl"></ion-icon>
+                            <span class="ml-3 font-medium">
+                                Odtwórz
+                            </span>
+                        </button>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+        <section class='bg-primary_black  min-h-screen flex justify-center py-10'>
+            <div class="p-8 w-10/12 relative" >
+
+
+                <h2 class="text-gray-200 text-3xl font-medium">
+                    Opis:</h2>
+
+                <div class="flex justify-center  items-center min-w-full  movie_lis">
+                    <p class="text-gray-100 text-lg">
+                        {{movie.description}}
+                    </p>
+
+                </div>
+                 <p class="text-gray-100 text-lg" style='font-size:30px;' >
+                       <h2 class="text-gray-200 text-3xl font-medium">Tagi:</h2>
+                        {% for tag in movie.tags.all %}
+                            <div class="tag text-lg ">{{tag.title}}</div>
+                          {% endfor %}
+                    </p>
+
+
+            </div>
+        </section>
+        
+    </main>
+    
+{% endblock content %}
+
